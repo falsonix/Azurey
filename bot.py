@@ -154,7 +154,7 @@ async def play_rps(interaction: discord.Interaction, choice: str, *, user: disco
     result = determine_winner(choice.lower(), bot_choice)
     
     embed = discord.Embed(
-        title=f"Rock Paper Scissors - {user.name} versus {bot.user.name}",
+        title=f"Rock Paper Scissors - {interaction.user.mention} versus {bot.user.mention}",
         description=f"You chose **{choice}**, and I chose **{bot_choice}**.\n\n{result}",
         color=discord.Color.blue()
     )
