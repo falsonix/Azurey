@@ -45,6 +45,7 @@ quotes = [
             "people that made the english language were tripping actual balls",
             "HEY EVERY !",
             "~~balls~~ Spherical Objects",
+            "let's see who lasts longer",
 ]
 
 @bot.event
@@ -79,7 +80,7 @@ async def dm(interaction: discord.Interaction, user: discord.User, *, message: s
     )
     await interaction.response.send_message(embed=embed)
     
-@bot.tree.command(name="quote", description="Get a random funny quote")
+@bot.tree.command(name="quote", description="Get a random quote from someone in this server")
 async def random_quote(interaction: discord.Interaction):
     random_quote = random.choice(quotes)
     
