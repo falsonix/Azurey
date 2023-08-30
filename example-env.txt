@@ -1,0 +1,5 @@
+Create a new file with the name ".env" and paste the following command into the file:
+
+BOT_TOKEN=token-here
+
+Make sure to replace [token-here] with your bot's token, otherwise this script will not work!
