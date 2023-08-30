@@ -1,0 +1,2 @@
+# Azurey
+Funny discord bot
