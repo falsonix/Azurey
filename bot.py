@@ -163,12 +163,12 @@ async def play_rps(interaction: discord.Interaction, choice: str):
 
 def determine_winner(player_choice, bot_choice):
     if player_choice == bot_choice:
-        return "It's a tie!"
+        return "It's a tie! Good game."
     elif player_choice == "rock":
-        return "You win!" if bot_choice == "scissors" else "I win!"
+        return "You win! Nice job." if bot_choice == "scissors" else "I win! Better luck next time"
     elif player_choice == "paper":
-        return "You win!" if bot_choice == "rock" else "I win!"
+        return "You win! Excellent work." if bot_choice == "rock" else "I win! GG"
     elif player_choice == "scissors":
-        return "You win!" if bot_choice == "paper" else "I win!"
+        return "You win! Sweet!" if bot_choice == "paper" else "I win! Get good lol"
 
 bot.run(bot_token)
