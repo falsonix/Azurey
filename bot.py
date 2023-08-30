@@ -142,7 +142,7 @@ async def random_quote(interaction: discord.Interaction):
     
     await interaction.response.send_message(embed=embed)
     
-@bot.tree.command(name="rps", description="Play rock-paper-scissors")
+@bot.tree.command(name="rps", description="Play rock-paper-scissors with the bot")
 async def play_rps(interaction: discord.Interaction, choice: str):
     choices = ["rock", "paper", "scissors"]
     bot_choice = random.choice(choices)
@@ -152,9 +152,14 @@ async def play_rps(interaction: discord.Interaction, choice: str):
         return
     
     result = determine_winner(choice.lower(), bot_choice)
-    response = f"You chose {choice}, and I chose {bot_choice}. {result}"
     
-    await interaction.response.send_message(response)
+    embed = discord.Embed(
+        title="Rock-Paper-Scissors",
+        description=f"You chose **{choice}**, and I chose **{bot_choice}**.\n\n{result}",
+        color=discord.Color.blue()
+    )
+    
+    await interaction.response.send_message(embed=embed)
 
 def determine_winner(player_choice, bot_choice):
     if player_choice == bot_choice:
