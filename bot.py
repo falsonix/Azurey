@@ -141,5 +141,29 @@ async def random_quote(interaction: discord.Interaction):
     )
     
     await interaction.response.send_message(embed=embed)
+    
+@bot.tree.command(name="rps", description="Play rock-paper-scissors")
+async def play_rps(interaction: discord.Interaction, choice: str):
+    choices = ["rock", "paper", "scissors"]
+    bot_choice = random.choice(choices)
+    
+    if choice.lower() not in choices:
+        await interaction.response.send_message("Invalid choice! Choose 'rock', 'paper', or 'scissors'.")
+        return
+    
+    result = determine_winner(choice.lower(), bot_choice)
+    response = f"You chose {choice}, and I chose {bot_choice}. {result}"
+    
+    await interaction.response.send_message(response)
+
+def determine_winner(player_choice, bot_choice):
+    if player_choice == bot_choice:
+        return "It's a tie!"
+    elif player_choice == "rock":
+        return "You win!" if bot_choice == "scissors" else "I win!"
+    elif player_choice == "paper":
+        return "You win!" if bot_choice == "rock" else "I win!"
+    elif player_choice == "scissors":
+        return "You win!" if bot_choice == "paper" else "I win!"
 
 bot.run(bot_token)
