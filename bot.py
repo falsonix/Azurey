@@ -126,7 +126,7 @@ async def get_avatar(interaction: discord.Interaction, user: discord.User = None
         title=f"{user.name}'s Avatar",
         color=discord.Color.pink()
     )
-    embed.set_image(url=user.avatar_url)
+    embed.set_image(url=user.avatar.url)
     
     await interaction.response.send_message(embed=embed)
 
