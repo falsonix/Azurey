@@ -43,7 +43,8 @@ quotes = [
             "CHCIKEN BREAST",
             "life sucks and then you die; get used to it",\
             "people that made the english language were tripping actual balls",
-            
+            "HEY EVERY !",
+            "~~balls~~ Spherical Objects",
 ]
 
 @bot.event
@@ -116,5 +117,17 @@ async def get_uptime(interaction: discord.Interaction):
     
     await interaction.response.send_message(embed=embed)
 
+@bot.tree.command(name="avatar", description="Get user's profile picture")
+async def get_avatar(interaction: discord.Interaction, user: discord.User = None):
+    if user is None:
+        user = interaction.message.author
+
+    embed = discord.Embed(
+        title=f"{user.name}'s Avatar",
+        color=discord.Color.pink()
+    )
+    embed.set_image(url=user.avatar_url)
+    
+    await interaction.response.send_message(embed=embed)
 
 bot.run(bot_token)
