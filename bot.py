@@ -3,6 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 import random
 import json
+import datetime
 
 # Load configuration from config.json
 with open('config.json', 'r') as config_file:
@@ -11,6 +12,9 @@ with open('config.json', 'r') as config_file:
 
 intents = discord.Intents.default()
 intents.message_content = True
+
+# Store the bot's startup time
+startup_time = datetime.datetime.now()
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 # Bot version and contributors
@@ -37,7 +41,9 @@ quotes = [
             "(Sending DDOS now)",
             "cheese",
             "CHCIKEN BREAST",
-            "life sucks and then you die; get used to it",
+            "life sucks and then you die; get used to it",\
+            "people that made the english language were tripping actual balls",
+            
 ]
 
 @bot.event
@@ -92,6 +98,20 @@ async def bot_info(interaction: discord.Interaction):
         title="Bot Information",
         description=f"**Version:** {bot_version}\n\n**Contributors:**\n{contributor_list}",
         color=discord.Color.blue()
+    )
+    
+    await interaction.response.send_message(embed=embed)
+    
+@bot.tree.command(name="uptime", description="Get bot's uptime")
+async def get_uptime(interaction: discord.Interaction):
+    current_time = datetime.datetime.now()
+    uptime = current_time - startup_time
+    uptime_str = str(uptime).split('.')[0]  # Remove microseconds
+    
+    embed = discord.Embed(
+        title="Bot Uptime",
+        description=f"I've been online for: **{uptime_str}**",
+        color=discord.Color.purple()
     )
     
     await interaction.response.send_message(embed=embed)
