@@ -2,11 +2,12 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 import random
-import os
-from dotenv import load_dotenv
+import json
 
-# Load environment variables from .env file
-load_dotenv()
+# Load configuration from config.json
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
+    bot_token = config['BOT_TOKEN']
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -95,4 +96,4 @@ async def bot_info(interaction: discord.Interaction):
     await interaction.response.send_message(embed=embed)
 
 
-bot.run(os.getenv("BOT_TOKEN"))
+bot.run(bot_token)
