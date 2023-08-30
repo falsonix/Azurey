@@ -14,7 +14,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 # Bot version and contributors
-bot_version = "0.1.0 Beta"
+bot_version = "0.1.1 Beta"
 contributors = [
     "A9qx",
     "TacticalSoupCan",
@@ -37,6 +37,7 @@ quotes = [
             "(Sending DDOS now)",
             "cheese",
             "CHCIKEN BREAST",
+            "life sucks and then you die; get used to it",
 ]
 
 @bot.event
