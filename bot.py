@@ -22,30 +22,56 @@ bot_version = "0.1.1 Beta"
 contributors = [
     "A9qx",
     "TacticalSoupCan",
-    # Add more contributors here
+    "sploons21",
+    "Hallowsifer",
 ]
 # Add or remove quotes in this list
 quotes = [
-            "no comment   -unknown",
-            "it's ok, we can buy a new one   -andreas",
-            "fronch fries   -unknown",
-            "typeerrrarace me right now   -andreas",
-            "andreas stop slapping that infant   -christian",
-            "stop rizzing my mom   -christian",
-            "kid named finger:   -joseph",
-            "how bad can i be? i'm just crashing the economy   -christian",
-            "naked xbox   -christian",
-            "usps is speedrunning my package through every single regional facility   -christian",
-            "imagine not having a Verified Bank Account   -andreas",
-            "lol thats what makes this really funny because as you can see im actually really goated and ksaooifudsfusoifudsfusdoifusdfudsoiusfs fdsuf oisdufsdi fusdoiuf   -andreas",
-            "(Sending DDOS now)   -andreas",
-            "cheese   -oat",
-            "CHCIKEN BREAST   -oat",
-            "life sucks and then you die; get used to it   -evan",
-            "people that made the english language were tripping actual balls   -xander",
-            "HEY EVERY !   -teddy",
-            "~~balls~~ Spherical Objects",
-            "let's see who lasts longer   -andreas",
+    "no comment",
+    "it's ok, we can buy a new one",
+    "fronch fries",
+    "typeerrrarace me right now",
+    "andreas stop slapping that infant",
+    "stop rizzing my mom",
+    "kid named finger:",
+    "how bad can i be? i'm just crashing the economy",
+    "naked xbox",
+    "usps is speedrunning my package through every single regional facility",
+    "imagine not having a Verified Bank Account",
+    "lol thats what makes this really funny because as you can see im actually really goated and ksaooifudsfusoifudsfusdoifusdfudsoiusfs fdsuf oisdufsdi fusdoiuf",
+    "(Sending DDOS now)",
+    "cheese",
+    "CHCIKEN BREAST",
+    "life sucks and then you die; get used to it",
+    "people that made the english language were tripping actual balls",
+    "HEY EVERY !",
+    "~~balls~~ Spherical Objects",
+    "let's see who lasts longer",
+    "commit mass genocide on minors",
+]
+
+authors = [
+    "unknown",
+    "andreas",
+    "unknown",
+    "andreas",
+    "christian",
+    "christian",
+    "joseph",
+    "christian",
+    "christian",
+    "christian",
+    "andreas",
+    "andreas",
+    "andreas",
+    "oat",
+    "oat",
+    "evan",
+    "xander",
+    "teddy",
+    "anonymous",
+    "andreas",
+    "evan",
 ]
 
 @bot.event
@@ -82,18 +108,21 @@ async def dm(interaction: discord.Interaction, user: discord.User, *, message: s
     
 @bot.tree.command(name="quote", description="Get a random quote from someone in this server")
 async def random_quote(interaction: discord.Interaction):
-    random_quote = random.choice(quotes)
+    random_index = random.randint(0, len(quotes) - 1)
+    random_quote = quotes[random_index]
+    random_author = authors[random_index]
+    
     if random_quote == "cheese":
         embed = discord.Embed(
             title="oat the quote",
-            description=f'"{random_quote}"',
-            color=discord.Color.yellow()  # Set color to yellow for "cheese" quote
+            description=f'"{random_quote}" - {random_author}',
+            color=discord.Color.yellow()
         )
-        embed.set_footer(text="🧀")  # Add cheese emoji to footer
+        embed.set_footer(text="🧀")
     else:
         embed = discord.Embed(
             title="Random Quote",
-            description=f'"{random_quote}"',
+            description=f'"{random_quote}" - {random_author}',
             color=discord.Color.orange()
         )
     
