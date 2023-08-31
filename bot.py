@@ -4,6 +4,8 @@ from discord.ext import commands
 import random
 import json
 import datetime
+from discord import Game, Streaming, Activity
+import asyncio
 
 # Load configuration from config.json
 with open('config.json', 'r') as config_file:
@@ -74,8 +76,24 @@ authors = [
     "evan",
 ]
 
+# List of activities to rotate through
+activities = [
+    discord.Game(name="Visual Studio Code"),
+    discord.Activity(type=discord.ActivityType.listening, name="Analog Synthesizers"),
+    discord.Activity(type=discord.ActivityType.watching, name="YouTube"),
+    discord.Streaming(name="Bytes of data", url="https://twitch.tv/404/"),
+    discord.Activity(type=discord.ActivityType.competing, name="Chess")
+]
+
+async def rotate_activities():
+    while True:
+        for activity in activities:
+            await bot.change_presence(activity=activity)
+            await asyncio.sleep(600)  # Sleep for 10 minutes (600 seconds)
+
 @bot.event
 async def on_ready():
+    bot.loop.create_task(rotate_activities()) # Start activity status
     print(f'Logged in as {bot.user.name}')
     try:
         synced = await bot.tree.sync()
@@ -207,5 +225,7 @@ def determine_winner(player_choice, bot_choice):
         return "You win! Excellent work." if bot_choice == "rock" else "I win! GG"
     elif player_choice == "scissors":
         return "You win! Sweet!" if bot_choice == "paper" else "I win! Get good lol"
+    
+
 
 bot.run(bot_token)

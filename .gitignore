@@ -1,2 +1,5 @@
 # Ignore .JSON files
 config.json
+
+# Ignore .zip files
+*.zip
