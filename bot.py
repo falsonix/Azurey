@@ -18,7 +18,7 @@ startup_time = datetime.datetime.now()
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 # Bot version and contributors
-bot_version = "0.1.1 Beta"
+bot_version = "1.0.0 Release"
 contributors = [
     "A9qx",
     "TacticalSoupCan",

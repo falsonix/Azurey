@@ -6,7 +6,7 @@ Funny discord bot
 # Installation Instructions
 1. Install Python
 2. Run `pip install discord`
-3. Download and unzip the files
+3. Download and unzip the files under the `releases` tab of this repository.
 4. Create a `config.json` file and copy contents over from `example-json.txt`
 5. Create a Discord application and paste your bot's token in `config.json`
 6. **Make sure to enable all intents for your application**, then invite it to your guild
