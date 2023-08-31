@@ -85,7 +85,7 @@ async def random_quote(interaction: discord.Interaction):
     random_quote = random.choice(quotes)
     if random_quote == "cheese":
         embed = discord.Embed(
-            title="Random Quote",
+            title="oat the quote",
             description=f'"{random_quote}"',
             color=discord.Color.yellow()  # Set color to yellow for "cheese" quote
         )
