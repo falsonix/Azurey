@@ -83,12 +83,19 @@ async def dm(interaction: discord.Interaction, user: discord.User, *, message: s
 @bot.tree.command(name="quote", description="Get a random quote from someone in this server")
 async def random_quote(interaction: discord.Interaction):
     random_quote = random.choice(quotes)
-    
-    embed = discord.Embed(
-        title="Random Quote",
-        description=f'"{random_quote}"',
-        color=discord.Color.orange()
-    )
+    if random_quote == "cheese":
+        embed = discord.Embed(
+            title="Random Quote",
+            description=f'"{random_quote}"',
+            color=discord.Color.yellow()  # Set color to yellow for "cheese" quote
+        )
+        embed.set_footer(text="🧀")  # Add cheese emoji to footer
+    else:
+        embed = discord.Embed(
+            title="Random Quote",
+            description=f'"{random_quote}"',
+            color=discord.Color.orange()
+        )
     
     await interaction.response.send_message(embed=embed)
 
