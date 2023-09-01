@@ -231,59 +231,5 @@ def determine_winner(player_choice, bot_choice):
         return "You win! Excellent work." if bot_choice == "rock" else "I win! GG"
     elif player_choice == "scissors":
         return "You win! Sweet!" if bot_choice == "paper" else "I win! Get good lol"
-    
-@bot.tree.command(name="chess", description="Challenge another user to a chess match")
-async def challenge(interaction: discord.Interaction, user: discord.User):
-    if user == interaction.user.mention:
-        await interaction.response.send_message("You can't challenge yourself, dum dum. Pick an actual user to play against.")
-        return
-
-    challenges[interaction.user.mention] = user
-
-    embed = discord.Embed(
-        title="Pending Challenge",
-        description=f"{interaction.user.mention} has challenged {user.mention} to a chess match!\n"
-                    f"{user.mention}, do you accept?\n"
-                    f"React with ✅ to accept or ❌ to decline.",
-        color=discord.Color.blue()
-    )
-    
-    interaction.message = await interaction.response.send_message(embed=embed)
-    await interaction.message.add_reaction("✅")
-    await interaction.message.add_reaction("❌")
-
-@bot.event
-async def on_reaction_add(reaction, user):
-    if user.bot:
-        return
-
-    if user in challenges and challenges[user] == reaction.message.mentions[0]:
-        if str(reaction.emoji) == "✅":
-            await start_chess_game(user, challenges[user], reaction.message)
-        elif str(reaction.emoji) == "❌":
-            await reaction.message.channel.send(f"{user.mention} has declined the chess challenge.")
-        del challenges[user]
-
-async def start_chess_game(player1, player2, message):
-    board = chess.Board()
-    svg_board = chess.svg.board(board=board)
-    
-    embed = discord.Embed(
-        title="Chess Game",
-        description=f"{player1.mention} vs. {player2.mention}\n"
-                    "The chess game begins!\n",
-        color=discord.Color.green()
-    )
-    embed.set_image(url="attachment://chess_board.png")
-
-    # Save the SVG board as an image and send it in the embed
-    svg_path = "chess_board.svg"
-    png_path = "chess_board.png"
-    with open(svg_path, "w") as svg_file:
-        svg_file.write(svg_board)
-    board_image = discord.File(png_path, filename="chess_board.png")
-    
-    await message.edit(embed=embed, file=board_image)
-    await message.clear_reactions()
 
 bot.run(bot_token)
