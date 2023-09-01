@@ -248,7 +248,7 @@ async def challenge(interaction: discord.Interaction, user: discord.User):
         color=discord.Color.blue()
     )
     
-    message = await interaction.response.send_message(embed=embed)
+    interaction.message = await interaction.response.send_message(embed=embed)
     await interaction.message.add_reaction("✅")
     await interaction.message.add_reaction("❌")
 
