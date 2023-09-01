@@ -234,11 +234,11 @@ def determine_winner(player_choice, bot_choice):
     
 @bot.tree.command(name="chess", description="Challenge another user to a chess match")
 async def challenge(interaction: discord.Interaction, user: discord.User):
-    if user == interaction.message.author:
+    if user == interaction.user.mention:
         await interaction.response.send_message("You can't challenge yourself, dum dum. Pick an actual user to play against.")
         return
 
-    challenges[interaction.message.author] = user
+    challenges[interaction.user.mention] = user
 
     embed = discord.Embed(
         title="Pending Challenge",
