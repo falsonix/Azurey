@@ -50,6 +50,7 @@ quotes = [
     "~~balls~~ Spherical Objects",
     "let's see who lasts longer",
     "commit mass genocide on minors",
+    "i dont want you if your over 12 🗣️",
 ]
 
 authors = [
@@ -74,6 +75,7 @@ authors = [
     "anonymous",
     "andreas",
     "evan",
+    "andreas",
 ]
 
 # List of activities to rotate through
