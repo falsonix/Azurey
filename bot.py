@@ -231,5 +231,18 @@ def determine_winner(player_choice, bot_choice):
         return "You win! Excellent work." if bot_choice == "rock" else "I win! GG"
     elif player_choice == "scissors":
         return "You win! Sweet!" if bot_choice == "paper" else "I win! Get good lol"
+    
+@bot.tree.command(name="gay", description="Find out how gay someone is!")
+async def gayness(ctx, user: discord.User):
+    gayness_percentage = random.randint(0, 100)
+    
+    # Save the result to a list (you should use a database for production)
+    # For simplicity, we'll use a global list here.
+    global gayness_list
+    if 'gayness_list' not in globals():
+        gayness_list = []
+    gayness_list.append((user.name, gayness_percentage))
+    
+    await ctx.send(f'{user.name} is {gayness_percentage}% gay. Congrats 🏳️‍🌈!')
 
 bot.run(bot_token)
