@@ -91,7 +91,7 @@ async def rotate_activities():
     while True:
         for activity in activities:
             await bot.change_presence(activity=activity)
-            await asyncio.sleep(600)  # Sleep for 10 minutes (600 seconds)
+            await asyncio.sleep(120)  # Sleep for 10 minutes (600 seconds)
 
 @bot.event
 async def on_ready():
