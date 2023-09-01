@@ -249,8 +249,8 @@ async def challenge(interaction: discord.Interaction, user: discord.User):
     )
     
     message = await interaction.response.send_message(embed=embed)
-    await message.add_reaction("✅")
-    await message.add_reaction("❌")
+    await interaction.message.add_reaction("✅")
+    await interaction.message.add_reaction("❌")
 
 @bot.event
 async def on_reaction_add(reaction, user):
