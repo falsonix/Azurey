@@ -6,6 +6,8 @@ import json
 import datetime
 from discord import Game, Streaming, Activity
 import asyncio
+import chess
+import chess.svg
 
 # Load configuration from config.json
 with open('config.json', 'r') as config_file:
@@ -15,12 +17,14 @@ with open('config.json', 'r') as config_file:
 intents = discord.Intents.default()
 intents.message_content = True
 
+challenges = {}
+
 # Store the bot's startup time
 startup_time = datetime.datetime.now()
 
 bot = commands.Bot(command_prefix="!", intents = discord.Intents.all())
 # Bot version and contributors
-bot_version = "1.0.0 Release"
+bot_version = "1.1.0 Pre-Release"
 contributors = [
     "A9qx",
     "TacticalSoupCan",
@@ -228,6 +232,58 @@ def determine_winner(player_choice, bot_choice):
     elif player_choice == "scissors":
         return "You win! Sweet!" if bot_choice == "paper" else "I win! Get good lol"
     
+@bot.tree.command(name="chess", description="Challenge another user to a chess match")
+async def challenge(interaction: discord.Interaction, user: discord.User):
+    if user == interaction.message.author:
+        await interaction.response.send_message("You can't challenge yourself, dum dum. Pick an actual user to play against.")
+        return
 
+    challenges[interaction.message.author] = user
+
+    embed = discord.Embed(
+        title="Pending Challenge",
+        description=f"{interaction.user.mention} has challenged {user.mention} to a chess match!\n"
+                    f"{user.mention}, do you accept?\n"
+                    f"React with ✅ to accept or ❌ to decline.",
+        color=discord.Color.blue()
+    )
+    
+    message = await interaction.response.send_message(embed=embed)
+    await message.add_reaction("✅")
+    await message.add_reaction("❌")
+
+@bot.event
+async def on_reaction_add(reaction, user):
+    if user.bot:
+        return
+
+    if user in challenges and challenges[user] == reaction.message.mentions[0]:
+        if str(reaction.emoji) == "✅":
+            await start_chess_game(user, challenges[user], reaction.message)
+        elif str(reaction.emoji) == "❌":
+            await reaction.message.channel.send(f"{user.mention} has declined the chess challenge.")
+        del challenges[user]
+
+async def start_chess_game(player1, player2, message):
+    board = chess.Board()
+    svg_board = chess.svg.board(board=board)
+    
+    embed = discord.Embed(
+        title="Chess Game",
+        description=f"{player1.mention} vs. {player2.mention}\n"
+                    "The chess game begins!\n",
+        color=discord.Color.green()
+    )
+    embed.set_image(url="attachment://chess_board.png")
+
+    # Save the SVG board as an image and send it in the embed
+    svg_path = "chess_board.svg"
+    png_path = "chess_board.png"
+    with open(svg_path, "w") as svg_file:
+        svg_file.write(svg_board)
+    board_image = discord.File(png_path, filename="chess_board.png")
+    
+    await message.edit(embed=embed, file=board_image)
+    await message.clear_reactions()
 
 bot.run(bot_token)
